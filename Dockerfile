@@ -1,7 +1,8 @@
-FROM gradle:latest as builder
-COPY . /usr/src/app
-RUN cd /usr/src/app && ./gradlew build
+FROM gradle:latest as build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build
 
 FROM gcr.io/distroless/java17-debian11
-COPY --from=builder /usr/src/app/build/libs/recipe-book-0.0.1-SNAPSHOT.jar /usr/app/recipe-book.jar
-ENTRYPOINT ["java", "-jar", "/usr/app/recipe-book.jar"]
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/recipe-book-server.jar
+ENTRYPOINT ["java", "-jar", "/app/recipe-book-server.jar"]
