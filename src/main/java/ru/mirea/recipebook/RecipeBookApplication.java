@@ -1,4 +1,4 @@
-package ru.mirea.cookbook;
+package ru.mirea.recipebook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
