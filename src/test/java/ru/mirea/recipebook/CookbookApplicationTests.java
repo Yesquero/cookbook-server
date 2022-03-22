@@ -1,4 +1,4 @@
-package ru.mirea.cookbook;
+package ru.mirea.recipebook;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
