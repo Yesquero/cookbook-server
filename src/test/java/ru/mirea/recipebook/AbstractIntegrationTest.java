@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles(profiles = "test")
 @SpringBootTest
-class CookbookApplicationTests {
+class AbstractIntegrationTest {
 
 	@Test
 	void contextLoads() {
