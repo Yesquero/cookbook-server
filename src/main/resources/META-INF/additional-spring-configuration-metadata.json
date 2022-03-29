@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "ysq.default-admin-password",
+      "type": "java.lang.String",
+      "description": "Password for default admin user."
+  }
+] }
