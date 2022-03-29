@@ -13,3 +13,5 @@ spring:
       ddl-auto: validate
   flyway:
     clean-on-validation-error: false
+ysq:
+  new-admin-password: ${YSQ_DEFAULT_PWD}
