@@ -10,7 +10,7 @@
 - Docker (не обязателен)
 
 Java 17 не обязательно ставить в path.  
-Выставить переменные среды YSQ_DB_HOST, YSQ_DB_USER, YSQ_DB_PASSWORD, YSQ_DEFAULT_PWD.  
+Выставить переменные среды RB_DB_HOST, RB_DB, RB_DB_USER, RB_DB_PASSWORD, RB_DEFAULT_PWD.  
 Docker нужен только если хотите запустить как контейнер.
 
 ### Intellij IDEA
@@ -30,7 +30,7 @@ docker build -t <tag name> .
 Запустить контейнер, вместо порта 8082 можно выбрать любой открытый, например `-p 9092:8082`.  
 Сервер будет досутпен по http://localhost:8082/ ( если не менять порт).
 ```bash
-docker run -d --rm -p 8082:8082 -e YSQ_DB_HOST=$YSQ_DB_HOST -e YSQ_DB_USER=$YSQ_DB_USER -e YSQ_DB_PASSWORD=$YSQ_DB_PASSWORD -e YSQ_DEFAULT_PWD=$YSQ_DEFAULT_PWD --name <my name> <tag name>
+docker run -d --rm -p 8082:8082 -e RB_DB_HOST=$RB_DB_HOST -e RB_DB=$RB_DB -e RB_DB_USER=$RB_DB_USER -e RB_DB_PASSWORD=$RB_DB_PASSWORD -e RB_DEFAULT_PWD=$RB_DEFAULT_PWD --name <my name> <tag name>
 ```
 
 Остановить контейнер.

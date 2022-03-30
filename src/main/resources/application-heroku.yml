@@ -5,13 +5,13 @@ spring:
   application:
     name: recipe-book-server
   datasource:
-    url: jdbc:postgresql://${YSQ_DB_HOST}:5432/${YSQ_DB_USER}
-    username: ${YSQ_DB_USER}
-    password: ${YSQ_DB_PASSWORD}
+    url: jdbc:postgresql://${RB_DB_HOST}:5432/${RB_DB}
+    username: ${RB_DB_USER}
+    password: ${RB_DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
   flyway:
     clean-on-validation-error: false
-ysq:
-  new-admin-password: ${YSQ_DEFAULT_PWD}
+recipe-book:
+  default-admin-password: ${RB_DEFAULT_PWD}

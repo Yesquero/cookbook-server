@@ -23,7 +23,7 @@ public class DataLoader implements ApplicationRunner {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${ysq.default-admin-password}")
+    @Value("${recipe-book.default-admin-password}")
     private String defaultAdminPassword;
 
     @Override
