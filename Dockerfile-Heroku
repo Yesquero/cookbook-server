@@ -5,4 +5,4 @@ RUN gradle build -x check --no-daemon
 
 FROM gcr.io/distroless/java17-debian11
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/recipe-book-server.jar
-CMD ["java", "-Dserver.port=$PORT -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -XX:+UseContainerSupport -Djava.security.egd=file:/dev/./urandom", "-jar", "-Dspring.profiles.active=heroku", "/app/recipe-book-server.jar"]
+CMD ["java -Dserver.port=$PORT -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -XX:+UseContainerSupport -Djava.security.egd=file:/dev/./urandom -jar -Dspring.profiles.active=heroku /app/recipe-book-server.jar"]
