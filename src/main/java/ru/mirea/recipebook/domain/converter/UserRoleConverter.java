@@ -1,6 +1,6 @@
 package ru.mirea.recipebook.domain.converter;
 
-import ru.mirea.recipebook.domain.UserRole;
+import ru.mirea.recipebook.domain.enumeration.UserRole;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

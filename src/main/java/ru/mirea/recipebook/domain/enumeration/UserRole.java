@@ -1,4 +1,4 @@
-package ru.mirea.recipebook.domain;
+package ru.mirea.recipebook.domain.enumeration;
 
 public enum UserRole {
     ADMIN,

@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.mirea.recipebook.domain.UserEntity;
-import ru.mirea.recipebook.domain.UserRole;
+import ru.mirea.recipebook.domain.enumeration.UserRole;
+import ru.mirea.recipebook.domain.enumeration.UserStatus;
 import ru.mirea.recipebook.service.UserService;
 
 @Profile("!test")
@@ -32,8 +33,10 @@ public class DataLoader implements ApplicationRunner {
             logger.info(String.format("No users found, creating default admin with login: %s", DEFAULT_ADMIN_LOGIN));
             UserEntity defaultAdmin = new UserEntity();
             defaultAdmin.setLogin(DEFAULT_ADMIN_LOGIN);
+            defaultAdmin.setNickname(DEFAULT_ADMIN_LOGIN);
             defaultAdmin.setPassword(passwordEncoder.encode(defaultAdminPassword));
             defaultAdmin.setUserRole(UserRole.ADMIN);
+            defaultAdmin.setStatus(UserStatus.ACTIVE);
             userService.saveUser(defaultAdmin);
         }
     }
