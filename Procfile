@@ -1,1 +1,0 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar -Dspring.profiles.active=heroku build/libs/recipe-book-0.0.1-SNAPSHOT.jar
