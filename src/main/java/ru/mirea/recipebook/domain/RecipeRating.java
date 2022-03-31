@@ -2,6 +2,7 @@ package ru.mirea.recipebook.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.mirea.recipebook.domain.compositeKeys.RecipeRatingPK;
 
 import javax.persistence.*;
 import java.util.UUID;

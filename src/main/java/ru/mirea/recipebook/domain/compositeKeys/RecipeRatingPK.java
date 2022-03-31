@@ -1,4 +1,4 @@
-package ru.mirea.recipebook.domain;
+package ru.mirea.recipebook.domain.compositeKeys;
 
 import lombok.RequiredArgsConstructor;
 

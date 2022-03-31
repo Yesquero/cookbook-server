@@ -23,4 +23,7 @@ public class Image extends BaseEntityWithUuid {
 
     @OneToOne(mappedBy = "recipeImage")
     private Recipe recipe;
+
+    @OneToOne(mappedBy = "stepImage")
+    private RecipeStep step;
 }

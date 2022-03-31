@@ -37,4 +37,7 @@ public class Recipe extends BaseEntityWithUuid {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
     private Set<RecipeRating> ratings;
+
+    @OneToMany(mappedBy = "recipe")
+    private Set<RecipeStep> steps = new HashSet<>();
 }
