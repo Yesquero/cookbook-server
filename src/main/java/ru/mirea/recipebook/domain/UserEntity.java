@@ -7,9 +7,9 @@ import ru.mirea.recipebook.domain.converter.UserStatusConverter;
 import ru.mirea.recipebook.domain.enumeration.UserRole;
 import ru.mirea.recipebook.domain.enumeration.UserStatus;
 
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,4 +32,15 @@ public class UserEntity extends BaseEntityWithUuid {
     private String firstName;
 
     private String lastName;
+
+    @ManyToMany
+    @JoinTable(
+            name = "favorite_recipe",
+            joinColumns = @JoinColumn(name = "fk_user"),
+            inverseJoinColumns = @JoinColumn(name = "fk_recipe")
+    )
+    private Set<Recipe> favoriteRecipes = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<RecipeRating> recipeRatings = new HashSet<>();
 }

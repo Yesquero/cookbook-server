@@ -6,6 +6,8 @@ import ru.mirea.recipebook.domain.converter.RecipeStatusConverter;
 import ru.mirea.recipebook.domain.enumeration.RecipeStatus;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -29,4 +31,10 @@ public class Recipe extends BaseEntityWithUuid {
 
     @Convert(converter = RecipeStatusConverter.class)
     private RecipeStatus status;
+
+    @ManyToMany(mappedBy = "favoriteRecipes")
+    private Set<UserEntity> inFavorites = new HashSet<>();
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    private Set<RecipeRating> ratings;
 }
