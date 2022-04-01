@@ -31,12 +31,14 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         if (userService.isRepoEmpty() && !defaultAdminPassword.isEmpty()) {
             logger.info(String.format("No users found, creating default admin with login: %s", DEFAULT_ADMIN_LOGIN));
+
             UserEntity defaultAdmin = new UserEntity();
             defaultAdmin.setLogin(DEFAULT_ADMIN_LOGIN);
             defaultAdmin.setNickname(DEFAULT_ADMIN_LOGIN);
             defaultAdmin.setPassword(passwordEncoder.encode(defaultAdminPassword));
             defaultAdmin.setUserRole(UserRole.ADMIN);
             defaultAdmin.setStatus(UserStatus.ACTIVE);
+
             userService.saveUser(defaultAdmin);
         }
     }
