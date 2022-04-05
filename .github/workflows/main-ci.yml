@@ -2,7 +2,7 @@ name: Heroku deployment
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, ci-setup ]
 
 concurrency:
   group: main-ci-${{ github.ref }}
