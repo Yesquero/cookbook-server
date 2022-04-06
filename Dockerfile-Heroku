@@ -4,5 +4,6 @@ WORKDIR /home/gradle/src
 RUN gradle build -x check --no-daemon
 
 FROM eclipse-temurin:17-jre-alpine
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/recipe-book-server.jar
-CMD ["sh", "-c", "java -Dserver.port=$PORT -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -XX:+UseContainerSupport -Djava.security.egd=file:/dev/./urandom -jar -Dspring.profiles.active=heroku /app/recipe-book-server.jar"]
+WORKDIR /app
+COPY --from=build /home/gradle/src/build/libs/*.jar recipe-book-server.jar
+CMD ["sh", "-c", "java -Dserver.port=$PORT -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -XX:+UseContainerSupport -Djava.security.egd=file:/dev/./urandom -jar -Dspring.profiles.active=heroku recipe-book-server.jar"]
