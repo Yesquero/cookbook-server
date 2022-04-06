@@ -1,3 +1,3 @@
 FROM eclipse-temurin:17-jre-alpine
-COPY libs/*.jar /app/recipe-book-server.jar
+ADD libs/*.jar /app/recipe-book-server.jar
 ENTRYPOINT ["java", "-jar", "/app/recipe-book-server.jar"]
