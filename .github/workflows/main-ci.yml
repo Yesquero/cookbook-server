@@ -58,8 +58,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: jarfile
-        path: build/libs/*.jar
+        path: build/libs/
         if-no-files-found: error
+        retention-days: 3
   
 
   build-image:
@@ -96,6 +97,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: Dockerfile-Actions
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
