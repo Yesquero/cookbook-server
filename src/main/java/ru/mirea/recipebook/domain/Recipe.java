@@ -35,7 +35,9 @@ public class Recipe extends BaseEntityWithUuid {
 	@Column(precision = 9, scale = 3)
 	private BigDecimal price;
 
-	private Integer duration;
+	private Integer durationHours;
+
+	private Integer durationMinutes;
 
 	private String portion;
 

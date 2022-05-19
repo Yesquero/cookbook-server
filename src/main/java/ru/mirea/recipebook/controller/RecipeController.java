@@ -3,6 +3,7 @@ package ru.mirea.recipebook.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ru.mirea.recipebook.controller.dto.NewRecipeDto;
 import ru.mirea.recipebook.controller.dto.RecipeInfoDto;
 import ru.mirea.recipebook.controller.dto.RecipeShortDto;
 import ru.mirea.recipebook.controller.dto.mapper.DtoMapper;

@@ -26,6 +26,8 @@ public class DtoMapper {
 			.addMapping(Recipe::getUuid, RecipeShortDto::setUuid)
 			.addMapping(Recipe::getName, RecipeShortDto::setName)
 			.addMapping(Recipe::getPrice, RecipeShortDto::setPrice)
+			.addMapping(Recipe::getDurationHours, RecipeShortDto::setDurationHours)
+			.addMapping(Recipe::getDurationMinutes, RecipeShortDto::setDurationMinutes)
 			.setPostConverter(toDtoShort());
 
 		mapper.typeMap(Recipe.class, RecipeInfoDto.class)
@@ -35,7 +37,8 @@ public class DtoMapper {
 			.addMapping(Recipe::getDescription, RecipeInfoDto::setDescription)
 			.addMapping(Recipe::getInstructions, RecipeInfoDto::setInstructions)
 			.addMapping(Recipe::getPrice, RecipeInfoDto::setPrice)
-			.addMapping(Recipe::getDuration, RecipeInfoDto::setDuration)
+			.addMapping(Recipe::getDurationHours, RecipeInfoDto::setDurationHours)
+			.addMapping(Recipe::getDurationMinutes, RecipeInfoDto::setDurationMinutes)
 			.addMapping(Recipe::getPortion, RecipeInfoDto::setPortion)
 			.addMapping(Recipe::getCalories, RecipeInfoDto::setCalories)
 			.addMapping(Recipe::getFats, RecipeInfoDto::setFats)

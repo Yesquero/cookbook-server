@@ -23,7 +23,9 @@ public class RecipeInfoDto {
 
 	private BigDecimal price;
 
-	private Integer duration;
+	private Integer durationHours;
+
+	private Integer durationMinutes;
 
 	private String portion;
 

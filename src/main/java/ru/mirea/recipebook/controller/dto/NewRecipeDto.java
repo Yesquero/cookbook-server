@@ -1,4 +1,4 @@
-package ru.mirea.recipebook.controller;
+package ru.mirea.recipebook.controller.dto;
 
 import lombok.Data;
 
@@ -21,7 +21,9 @@ public class NewRecipeDto {
 
 	private BigDecimal price;
 
-	private Integer duration;
+	private Integer durationHours;
+
+	private Integer durationMinutes;
 
 	private String portion;
 
