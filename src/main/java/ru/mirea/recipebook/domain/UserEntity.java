@@ -33,7 +33,7 @@ public class UserEntity extends BaseEntityWithUuid {
 
 	private String lastName;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
 		name = "favorite_recipe",
 		joinColumns = @JoinColumn(name = "fk_user"),
@@ -43,5 +43,15 @@ public class UserEntity extends BaseEntityWithUuid {
 
 	@OneToMany(mappedBy = "user")
 	private Set<RecipeRating> recipeRatings = new HashSet<>();
+
+	public void addToFavorites(Recipe recipe) {
+		favoriteRecipes.add(recipe);
+		recipe.getInFavorites().add(this);
+	}
+
+	public void deleteFromFavorites(Recipe recipe) {
+		favoriteRecipes.remove(recipe);
+		recipe.getInFavorites().remove(this);
+	}
 
 }

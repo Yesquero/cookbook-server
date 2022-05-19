@@ -1,4 +1,4 @@
-package ru.mirea.recipebook.service;
+package ru.mirea.recipebook.utility;
 
 public class FileUploadException extends RuntimeException {
 

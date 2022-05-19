@@ -24,6 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.mvcMatchers("/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/v2/**", "/v3/**", "/swagger-resources/**").permitAll()
 			.mvcMatchers("/api/image", "/api/image/**").permitAll()
 			.mvcMatchers("/api/user/register", "/api/user/login").permitAll()
+			.mvcMatchers("/api/category/all").permitAll()
+			.mvcMatchers("/api/recipe/recipes", "/api/recipe/info/*").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.cors().disable()

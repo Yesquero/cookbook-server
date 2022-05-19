@@ -53,7 +53,9 @@ public class UserService implements UserDetailsService {
 	public UserEntity authenticate(AuthenticationDto dto) {
 		UserEntity user = findByLogin(dto.getLogin());
 
-		if (passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+		if (user.getStatus().equals(UserStatus.INACTIVE)) {
+			throw new DomainLogicException("User is inactive.");
+		} else if (passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
 			return user;
 		} else {
 			throw new DomainLogicException("Incorrect password.");

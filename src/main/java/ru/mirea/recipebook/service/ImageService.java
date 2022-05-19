@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import ru.mirea.recipebook.domain.Image;
 import ru.mirea.recipebook.repository.ImageRepository;
+import ru.mirea.recipebook.utility.FileUploadException;
 import ru.mirea.recipebook.utility.ResourceNotFoundException;
 
 import java.io.IOException;

@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.mirea.recipebook.controller.dto.AuthenticationDto;
-import ru.mirea.recipebook.controller.dto.DtoMapper;
 import ru.mirea.recipebook.controller.dto.UserInfoDto;
+import ru.mirea.recipebook.controller.dto.mapper.DtoMapper;
 import ru.mirea.recipebook.service.UserService;
 
 @RestController

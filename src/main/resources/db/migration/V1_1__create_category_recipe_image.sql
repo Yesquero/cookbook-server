@@ -22,7 +22,7 @@ CREATE TABLE recipe
     uuid               uuid,
     fk_recipe_category uuid          NOT NULL,
     fk_image           uuid,
-    name               varchar(50)   NOT NULL,
+    name               varchar(50)   UNIQUE NOT NULL,
     complexity         integer       NOT NULL,
     description        varchar(500),
     instructions       varchar(1000) NOT NULL,
