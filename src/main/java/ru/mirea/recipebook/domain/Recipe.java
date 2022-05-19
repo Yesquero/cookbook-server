@@ -60,6 +60,6 @@ public class Recipe extends BaseEntityWithUuid {
 	private Set<UserEntity> inFavorites = new HashSet<>();
 
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-	private Set<RecipeRating> ratings;
+	private Set<RecipeRating> ratings = new HashSet<>();
 
 }
