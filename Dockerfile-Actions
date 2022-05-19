@@ -1,0 +1,4 @@
+FROM eclipse-temurin:17-jre-alpine
+ADD libs/*.jar /app/recipe-book-server.jar
+EXPOSE 8082
+ENTRYPOINT ["java", "-jar", "/app/recipe-book-server.jar"]
