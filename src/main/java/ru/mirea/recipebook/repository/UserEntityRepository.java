@@ -6,4 +6,5 @@ import ru.mirea.recipebook.domain.UserEntity;
 import java.util.UUID;
 
 public interface UserEntityRepository extends JpaRepository<UserEntity, UUID> {
+
 }

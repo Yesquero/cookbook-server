@@ -14,17 +14,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api/image")
 public class ImageController {
-    private final ImageService imageService;
 
-    @PostMapping
-    public UUID uploadImage(@RequestParam MultipartFile image) {
-        return imageService.saveImage(image);
-    }
+	private final ImageService imageService;
 
-    @GetMapping(value = "/{imageUuid}")
-    public Resource downloadImage(@PathVariable UUID imageUuid) {
-        Image found = imageService.findByUuid(imageUuid);
+	@PostMapping
+	public UUID uploadImage(@RequestParam MultipartFile image) {
+		return imageService.saveImage(image);
+	}
 
-        return new ByteArrayResource(found.getContent());
-    }
+	@GetMapping(value = "/{imageUuid}")
+	public Resource downloadImage(@PathVariable UUID imageUuid) {
+		Image found = imageService.findByUuid(imageUuid);
+
+		return new ByteArrayResource(found.getContent());
+	}
+
 }

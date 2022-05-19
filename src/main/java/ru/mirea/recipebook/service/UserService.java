@@ -12,22 +12,24 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserEntityRepository userRepository;
 
-    public UserEntity findUserById(UUID uuid) {
-        return userRepository.findById(uuid)
-                .orElseThrow(() -> new ResourceNotFoundException(UserEntity.class, uuid));
-    }
+	private final UserEntityRepository userRepository;
 
-    public UserEntity saveUser(UserEntity user) {
-        return userRepository.saveAndFlush(user);
-    }
+	public UserEntity findUserById(UUID uuid) {
+		return userRepository.findById(uuid)
+			.orElseThrow(() -> new ResourceNotFoundException(UserEntity.class, uuid));
+	}
 
-    public List<UserEntity> getAll() {
-        return userRepository.findAll();
-    }
+	public UserEntity saveUser(UserEntity user) {
+		return userRepository.saveAndFlush(user);
+	}
 
-    public Boolean isRepoEmpty() {
-        return userRepository.findAll().isEmpty();
-    }
+	public List<UserEntity> getAll() {
+		return userRepository.findAll();
+	}
+
+	public Boolean isRepoEmpty() {
+		return userRepository.findAll().isEmpty();
+	}
+
 }

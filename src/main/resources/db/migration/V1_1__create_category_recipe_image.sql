@@ -20,11 +20,19 @@ CREATE CAST (character varying as RECIPE_STATUS) WITH INOUT AS IMPLICIT;
 CREATE TABLE recipe
 (
     uuid               uuid,
-    fk_recipe_category uuid        NOT NULL,
+    fk_recipe_category uuid          NOT NULL,
     fk_image           uuid,
-    name               varchar(50) NOT NULL,
-    complexity         integer     NOT NULL,
+    name               varchar(50)   NOT NULL,
+    complexity         integer       NOT NULL,
     description        varchar(500),
+    instructions       varchar(1000) NOT NULL,
+    price              numeric(9, 3) NOT NULL,
+    duration           integer       NOT NULL,
+    portion            varchar(50),
+    calories           numeric(9, 3),
+    fats               numeric(7, 3),
+    proteins           numeric(7, 3),
+    carbohydrates      numeric(7, 3),
     status             RECIPE_STATUS,
     PRIMARY KEY (uuid)
 );

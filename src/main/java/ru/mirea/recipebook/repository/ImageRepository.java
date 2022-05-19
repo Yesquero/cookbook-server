@@ -6,4 +6,5 @@ import ru.mirea.recipebook.domain.Image;
 import java.util.UUID;
 
 public interface ImageRepository extends JpaRepository<Image, UUID> {
+
 }

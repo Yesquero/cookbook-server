@@ -17,30 +17,31 @@ import java.util.Set;
 @Table(name = "user_entity")
 public class UserEntity extends BaseEntityWithUuid {
 
-    private String login;
+	private String login;
 
-    private String password;
+	private String password;
 
-    private String nickname;
+	private String nickname;
 
-    @Convert(converter = UserRoleConverter.class)
-    private UserRole userRole;
+	@Convert(converter = UserRoleConverter.class)
+	private UserRole userRole;
 
-    @Convert(converter = UserStatusConverter.class)
-    private UserStatus status;
+	@Convert(converter = UserStatusConverter.class)
+	private UserStatus status;
 
-    private String firstName;
+	private String firstName;
 
-    private String lastName;
+	private String lastName;
 
-    @ManyToMany
-    @JoinTable(
-            name = "favorite_recipe",
-            joinColumns = @JoinColumn(name = "fk_user"),
-            inverseJoinColumns = @JoinColumn(name = "fk_recipe")
-    )
-    private Set<Recipe> favoriteRecipes = new HashSet<>();
+	@ManyToMany
+	@JoinTable(
+		name = "favorite_recipe",
+		joinColumns = @JoinColumn(name = "fk_user"),
+		inverseJoinColumns = @JoinColumn(name = "fk_recipe")
+	)
+	private Set<Recipe> favoriteRecipes = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<RecipeRating> recipeRatings = new HashSet<>();
+	@OneToMany(mappedBy = "user")
+	private Set<RecipeRating> recipeRatings = new HashSet<>();
+
 }

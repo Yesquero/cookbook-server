@@ -12,21 +12,23 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class ImageService {
-    private final ImageRepository imageRepository;
 
-    public UUID saveImage(MultipartFile image) {
-        try {
-            Image toSave = new Image();
-            toSave.setName(image.getOriginalFilename());
-            toSave.setContent(image.getBytes());
+	private final ImageRepository imageRepository;
 
-            return imageRepository.saveAndFlush(toSave).getUuid();
-        } catch (IOException exception) {
-            throw new FileUploadException(image.getName());
-        }
-    }
+	public UUID saveImage(MultipartFile image) {
+		try {
+			Image toSave = new Image();
+			toSave.setName(image.getOriginalFilename());
+			toSave.setContent(image.getBytes());
 
-    public Image findByUuid(UUID uuid) {
-        return imageRepository.findById(uuid).orElseThrow(() -> new ResourceNotFoundException(Image.class, uuid));
-    }
+			return imageRepository.saveAndFlush(toSave).getUuid();
+		} catch (IOException exception) {
+			throw new FileUploadException(image.getName());
+		}
+	}
+
+	public Image findByUuid(UUID uuid) {
+		return imageRepository.findById(uuid).orElseThrow(() -> new ResourceNotFoundException(Image.class, uuid));
+	}
+
 }

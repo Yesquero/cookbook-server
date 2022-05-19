@@ -15,15 +15,13 @@ import javax.persistence.Table;
 @Table(name = "image_catalog")
 public class Image extends BaseEntityWithUuid {
 
-    private String name;
+	private String name;
 
-    @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
-    private byte[] content;
+	@Lob
+	@Type(type = "org.hibernate.type.BinaryType")
+	private byte[] content;
 
-    @OneToOne(mappedBy = "recipeImage")
-    private Recipe recipe;
+	@OneToOne(mappedBy = "recipeImage")
+	private Recipe recipe;
 
-    @OneToOne(mappedBy = "stepImage")
-    private RecipeStep step;
 }

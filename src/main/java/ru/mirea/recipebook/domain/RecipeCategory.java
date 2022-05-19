@@ -14,8 +14,10 @@ import java.util.Set;
 @Setter
 @Table(name = "recipe_category")
 public class RecipeCategory extends BaseEntityWithUuid {
-    private String name;
 
-    @OneToMany(mappedBy = "category")
-    private Set<Recipe> recipes = new HashSet<>();
+	private String name;
+
+	@OneToMany(mappedBy = "category")
+	private Set<Recipe> recipes = new HashSet<>();
+
 }

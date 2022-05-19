@@ -14,20 +14,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic();
-        http.authorizeHttpRequests()
-                .mvcMatchers("/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/v2/**", "/v3/**", "/swagger-resources/**").permitAll()
-                .mvcMatchers("/api/image", "/api/image/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .cors().disable()
-                .csrf().disable();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.httpBasic();
+		http.authorizeHttpRequests()
+			.mvcMatchers("/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/v2/**", "/v3/**", "/swagger-resources/**").permitAll()
+			.mvcMatchers("/api/image", "/api/image/**").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			.cors().disable()
+			.csrf().disable();
+	}
+
 }
