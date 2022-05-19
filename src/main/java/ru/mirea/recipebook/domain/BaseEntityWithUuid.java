@@ -13,7 +13,9 @@ import java.util.UUID;
 @Getter
 @Setter
 public class BaseEntityWithUuid {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID uuid;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID uuid;
+
 }
