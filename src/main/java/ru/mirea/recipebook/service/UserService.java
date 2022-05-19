@@ -1,17 +1,21 @@
 package ru.mirea.recipebook.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.mirea.recipebook.domain.SecurityUser;
 import ru.mirea.recipebook.domain.UserEntity;
 import ru.mirea.recipebook.repository.UserEntityRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @SuppressWarnings("ClassCanBeRecord")
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	private final UserEntityRepository userRepository;
 
@@ -30,6 +34,16 @@ public class UserService {
 
 	public Boolean isRepoEmpty() {
 		return userRepository.findAll().isEmpty();
+	}
+
+	@Override
+	public SecurityUser loadUserByUsername(String login) throws UsernameNotFoundException {
+		Optional<UserEntity> foundUser = userRepository.findByLogin(login);
+		if (foundUser.isPresent()) {
+			return new SecurityUser((foundUser.get()));
+		} else {
+			throw new UsernameNotFoundException("User with login: " + login + " not found.");
+		}
 	}
 
 }
