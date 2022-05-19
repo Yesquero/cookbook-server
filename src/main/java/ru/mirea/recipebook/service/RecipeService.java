@@ -2,7 +2,7 @@ package ru.mirea.recipebook.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.mirea.recipebook.controller.NewRecipeDto;
+import ru.mirea.recipebook.controller.dto.NewRecipeDto;
 import ru.mirea.recipebook.domain.Image;
 import ru.mirea.recipebook.domain.Recipe;
 import ru.mirea.recipebook.domain.RecipeCategory;
@@ -107,7 +107,8 @@ public class RecipeService {
 		recipe.setCarbohydrates(dto.getCarbohydrates());
 		recipe.setFats(dto.getFats());
 		recipe.setProteins(dto.getProteins());
-		recipe.setDuration(dto.getDuration());
+		recipe.setDurationHours(dto.getDurationHours());
+		recipe.setDurationMinutes(dto.getDurationMinutes());
 		recipe.setPortion(dto.getPortion());
 	}
 

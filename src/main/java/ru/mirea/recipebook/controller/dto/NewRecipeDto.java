@@ -5,9 +5,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class RecipeInfoDto {
-
-	private String uuid;
+public class NewRecipeDto {
 
 	private String category;
 
@@ -38,7 +36,5 @@ public class RecipeInfoDto {
 	private BigDecimal carbohydrates;
 
 	private String status;
-
-	private Double rating;
 
 }

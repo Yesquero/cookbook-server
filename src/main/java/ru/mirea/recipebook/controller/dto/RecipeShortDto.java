@@ -11,7 +11,8 @@ public class RecipeShortDto {
 	private String name;
 	private String category;
 	private BigDecimal price;
-	private Integer duration;
+	private Integer durationHours;
+	private Integer durationMinutes;
 	private Double rating;
 
 }
