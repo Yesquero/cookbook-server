@@ -35,13 +35,13 @@ public class RecipeController {
 	}
 
 	@PostMapping("/add")
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
 	public RecipeShortDto addRecipe(@RequestBody NewRecipeDto dto) {
 		return mapper.toShortDto(recipeService.add(dto));
 	}
 
 	@PutMapping("/update/{uuid}")
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
 	public RecipeShortDto updateRecipe(@PathVariable UUID uuid, @RequestBody NewRecipeDto dto) {
 		return mapper.toShortDto(recipeService.update(uuid, dto));
 	}
