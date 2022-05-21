@@ -21,7 +21,7 @@ public class CategoryController {
 	private final DtoMapper mapper;
 
 	@PostMapping("/add/{name}")
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
 	public RecipeCategoryDto addCategory(@PathVariable String name) {
 		return mapper.toDto(categoryService.addCategory(name));
 	}
@@ -34,7 +34,7 @@ public class CategoryController {
 	}
 
 	@DeleteMapping("/delete/{uuid}")
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
 	public void delete(@PathVariable UUID uuid) {
 		categoryService.delete(uuid);
 	}
