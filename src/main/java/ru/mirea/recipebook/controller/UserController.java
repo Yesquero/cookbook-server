@@ -16,7 +16,8 @@ public class UserController {
 	private final DtoMapper mapper;
 	private final UserService userService;
 
-	@GetMapping("/login")
+	// change to GET through basic auth chain
+	@PostMapping("/login")
 	public UserInfoDto login(@RequestBody AuthenticationDto dto) {
 		return mapper.toDto(userService.authenticate(dto));
 	}
