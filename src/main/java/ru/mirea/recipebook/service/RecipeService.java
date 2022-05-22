@@ -9,10 +9,12 @@ import ru.mirea.recipebook.domain.RecipeCategory;
 import ru.mirea.recipebook.domain.UserEntity;
 import ru.mirea.recipebook.domain.enumeration.RecipeStatus;
 import ru.mirea.recipebook.repository.RecipeRepository;
+import ru.mirea.recipebook.utility.DomainLogicException;
 import ru.mirea.recipebook.utility.ResourceConflictException;
 import ru.mirea.recipebook.utility.ResourceNotFoundException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,6 +26,7 @@ public class RecipeService {
 	private final RecipeRepository recipeRepository;
 	private final ImageService imageService;
 	private final CategoryService categoryService;
+	private final UserService userService;
 
 	public Recipe findByUuid(UUID uuid) {
 		return recipeRepository.findById(uuid)
@@ -87,6 +90,13 @@ public class RecipeService {
 	}
 
 	@Transactional
+	public List<Recipe> getFavoriteRecipes(String login) {
+		UserEntity foundUser = userService.findByLogin(login);
+
+		return new ArrayList<>(foundUser.getFavoriteRecipes());
+	}
+
+	@Transactional
 	public void delete(UUID uuid) {
 		Recipe toDelete = findByUuid(uuid);
 
@@ -95,6 +105,34 @@ public class RecipeService {
 		}
 
 		recipeRepository.delete(toDelete);
+	}
+
+	@Transactional
+	public Recipe addToFavorites(String login, UUID recipeUuid) {
+		UserEntity foundUser = userService.findByLogin(login);
+		Recipe foundRecipe = findByUuid(recipeUuid);
+
+		if (foundUser.getFavoriteRecipes().contains(foundRecipe)) {
+			throw new DomainLogicException("Recipe is already in favorites.");
+		} else {
+			foundUser.addToFavorites(foundRecipe);
+		}
+
+		return foundRecipe;
+	}
+
+	@Transactional
+	public Recipe deleteFromFavorites(String login, UUID recipeUuid) {
+		UserEntity foundUser = userService.findByLogin(login);
+		Recipe foundRecipe = findByUuid(recipeUuid);
+
+		if (!foundUser.getFavoriteRecipes().contains(foundRecipe)) {
+			throw new DomainLogicException("Recipe is not in users favorites.");
+		} else {
+			foundUser.deleteFromFavorites(foundRecipe);
+		}
+
+		return foundRecipe;
 	}
 
 	private void setRecipeFields(Recipe recipe, NewRecipeDto dto) {

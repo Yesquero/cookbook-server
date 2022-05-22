@@ -8,10 +8,7 @@ import ru.mirea.recipebook.controller.dto.RecipeCategoryDto;
 import ru.mirea.recipebook.controller.dto.RecipeInfoDto;
 import ru.mirea.recipebook.controller.dto.RecipeShortDto;
 import ru.mirea.recipebook.controller.dto.UserInfoDto;
-import ru.mirea.recipebook.domain.Recipe;
-import ru.mirea.recipebook.domain.RecipeCategory;
-import ru.mirea.recipebook.domain.RecipeRating;
-import ru.mirea.recipebook.domain.UserEntity;
+import ru.mirea.recipebook.domain.*;
 
 @Component
 public class DtoMapper {
@@ -52,7 +49,12 @@ public class DtoMapper {
 			Recipe source = mappingContext.getSource();
 			RecipeInfoDto dto = mappingContext.getDestination();
 
-			dto.setRecipeImageUuid(source.getRecipeImage().getUuid().toString());
+			Image sourceImage = source.getRecipeImage();
+			if (sourceImage == null) {
+				dto.setRecipeImageUuid(null);
+			} else {
+				dto.setRecipeImageUuid(sourceImage.getUuid().toString());
+			}
 			dto.setCategory(source.getCategory().getName());
 			dto.setRating(
 				source.getRatings().stream()

@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.httpBasic();
 		http.authorizeHttpRequests()
 			.mvcMatchers("/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/v2/**", "/v3/**", "/swagger-resources/**").permitAll()
-			.mvcMatchers("/api/image", "/api/image/**").permitAll()
+			.mvcMatchers("/api/image/get/*").permitAll()
 			.mvcMatchers("/api/user/register", "/api/user/login").permitAll()
 			.mvcMatchers("/api/category/all").permitAll()
 			.mvcMatchers("/api/recipe/recipes", "/api/recipe/info/*").permitAll()

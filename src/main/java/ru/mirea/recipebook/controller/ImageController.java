@@ -17,12 +17,12 @@ public class ImageController {
 
 	private final ImageService imageService;
 
-	@PostMapping
+	@PostMapping("/upload")
 	public UUID uploadImage(@RequestParam MultipartFile image) {
 		return imageService.saveImage(image);
 	}
 
-	@GetMapping(value = "/{imageUuid}")
+	@GetMapping(value = "/get/{imageUuid}")
 	public Resource downloadImage(@PathVariable UUID imageUuid) {
 		Image found = imageService.findByUuid(imageUuid);
 

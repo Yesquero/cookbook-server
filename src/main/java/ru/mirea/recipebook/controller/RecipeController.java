@@ -2,6 +2,7 @@ package ru.mirea.recipebook.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.mirea.recipebook.controller.dto.NewRecipeDto;
 import ru.mirea.recipebook.controller.dto.RecipeInfoDto;
@@ -27,6 +28,23 @@ public class RecipeController {
 		List<Recipe> recipes = recipeService.getAll();
 
 		return recipes.stream().map(mapper::toShortDto).collect(Collectors.toList());
+	}
+
+	@GetMapping("/favorite")
+	public List<RecipeShortDto> getAllFavorites(Authentication authentication) {
+		List<Recipe> favoriteRecipes = recipeService.getFavoriteRecipes(authentication.getName());
+
+		return favoriteRecipes.stream().map(mapper::toShortDto).collect(Collectors.toList());
+	}
+
+	@PostMapping("/addFavorite/{uuid}")
+	public RecipeShortDto addToFavorites(Authentication authentication, @PathVariable UUID uuid) {
+		return mapper.toShortDto(recipeService.addToFavorites(authentication.getName(), uuid));
+	}
+
+	@PostMapping("/removeFavorite/{uuid}")
+	public RecipeShortDto deleteFromFavorite(Authentication authentication, @PathVariable UUID uuid) {
+		return mapper.toShortDto(recipeService.deleteFromFavorites(authentication.getName(), uuid));
 	}
 
 	@GetMapping("/info/{uuid}")
