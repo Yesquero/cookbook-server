@@ -7,11 +7,13 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import ru.mirea.recipebook.AbstractIntegrationTest;
+import ru.mirea.recipebook.controller.dto.ExceptionResponse;
 import ru.mirea.recipebook.controller.dto.NewRecipeDto;
 import ru.mirea.recipebook.controller.dto.RecipeShortDto;
 import ru.mirea.recipebook.domain.Recipe;
 import ru.mirea.recipebook.domain.RecipeCategory;
 import ru.mirea.recipebook.domain.enumeration.RecipeStatus;
+import ru.mirea.recipebook.utility.ResourceNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,6 +28,7 @@ public class RecipeControllerIntTest extends AbstractIntegrationTest {
 	private static final String FIRST_RECIPE_NAME = "FirstRecipe";
 	private static final String SECOND_RECIPE_NAME = "SecondRecipe";
 	private static final String CHANGED_RECIPE_NAME = "ChangedName";
+	private static final UUID INVALID_UUID = UUID.randomUUID();
 
 	@Test
 	public void addRecipe_and_Unauthorized() throws Exception {
@@ -88,7 +91,7 @@ public class RecipeControllerIntTest extends AbstractIntegrationTest {
 	}
 
 	@Test
-	public void getRecipeList() throws Exception {
+	public void getRecipeList_and_Success() throws Exception {
 		createAndSaveTwoRecipes();
 
 		MockHttpServletResponse response = mockMvc.perform(
@@ -105,6 +108,39 @@ public class RecipeControllerIntTest extends AbstractIntegrationTest {
 		Assertions.assertNotNull(recipeShortDtoList);
 		Assertions.assertEquals(FIRST_RECIPE_NAME, recipeShortDtoList.get(0).getName());
 		Assertions.assertEquals(SECOND_RECIPE_NAME, recipeShortDtoList.get(1).getName());
+	}
+
+	@Test
+	@WithMockUser(authorities = {"ADMIN"})
+	public void deleteRecipe_and_Success() throws Exception {
+		UUID savedRecipeUuid = createAndSaveRecipe();
+
+		mockMvc.perform(
+			delete("/api/recipe/delete/{uuid}", savedRecipeUuid)
+				.contentType(MediaType.APPLICATION_JSON)
+		).andExpect(status().isOk());
+
+		Optional<Recipe> savedRecipe = recipeRepository.findById(savedRecipeUuid);
+		Assertions.assertTrue(savedRecipe.isEmpty());
+	}
+
+	@Test
+	@WithMockUser(authorities = {"ADMIN"})
+	public void deleteRecipe_and_RecipeNotFound() throws Exception {
+		UUID savedRecipeUuid = createAndSaveRecipe();
+
+		MockHttpServletResponse response = mockMvc.perform(
+			delete("/api/recipe/delete/{uuid}", INVALID_UUID)
+				.contentType(MediaType.APPLICATION_JSON)
+		).andExpect(status().isNotFound()).andReturn().getResponse();
+
+		ExceptionResponse exceptionResponse = objectMapper.readValue(response.getContentAsString(), ExceptionResponse.class);
+		Optional<Recipe> savedRecipe = recipeRepository.findById(savedRecipeUuid);
+		Assertions.assertTrue(savedRecipe.isPresent());
+		Assertions.assertEquals(
+			String.format(ResourceNotFoundException.MESSAGE, Recipe.class.getSimpleName(), INVALID_UUID),
+			exceptionResponse.getResponseMessage()
+		);
 	}
 
 	private NewRecipeDto createNewRecipeDto() {

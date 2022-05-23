@@ -1,11 +1,13 @@
 package ru.mirea.recipebook.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import ru.mirea.recipebook.AbstractIntegrationTest;
 import ru.mirea.recipebook.controller.dto.AuthenticationDto;
 import ru.mirea.recipebook.controller.dto.ExceptionResponse;
@@ -15,15 +17,51 @@ import ru.mirea.recipebook.domain.enumeration.UserRole;
 import ru.mirea.recipebook.domain.enumeration.UserStatus;
 import ru.mirea.recipebook.service.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserControllerIntTest extends AbstractIntegrationTest {
 
+	private static final String FIRST_USER_LOGIN = "FirstUser";
+	private static final String SECOND_USER_LOGIN = "SecondUser";
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Test
+	@WithMockUser(authorities = {"ADMIN"})
+	public void getAllUsers_and_Success() throws Exception {
+		createAndSaveTwoUsers();
+
+		MockHttpServletResponse response = mockMvc.perform(
+			get("/api/user/all")
+				.contentType(MediaType.APPLICATION_JSON)
+		).andExpect(status().isOk()).andReturn().getResponse();
+
+		List<UserInfoDto> userInfoDtoList = objectMapper.readValue(
+			response.getContentAsString(),
+			new TypeReference<List<UserInfoDto>>() {
+			}
+		);
+
+		Assertions.assertNotNull(userInfoDtoList);
+		Assertions.assertEquals(2, userInfoDtoList.size());
+		Assertions.assertEquals(FIRST_USER_LOGIN, userInfoDtoList.get(0).getLogin());
+		Assertions.assertEquals(SECOND_USER_LOGIN, userInfoDtoList.get(1).getLogin());
+	}
+
+	@Test
+	@WithMockUser(authorities = {"USER"})
+	public void getAllUsers_and_Forbidden() throws Exception {
+		mockMvc.perform(
+			get("/api/user/all")
+				.contentType(MediaType.APPLICATION_JSON)
+		).andExpect(status().isForbidden());
+	}
 
 	@Test
 	public void registration_and_Success() throws Exception {
@@ -100,6 +138,30 @@ public class UserControllerIntTest extends AbstractIntegrationTest {
 		entity.setUserRole(UserRole.USER);
 
 		return entity;
+	}
+
+	private void createAndSaveTwoUsers() {
+		UserEntity userOne = new UserEntity();
+		UserEntity userTwo = new UserEntity();
+
+		userOne.setLogin(FIRST_USER_LOGIN);
+		userOne.setNickname(FIRST_USER_LOGIN);
+		userOne.setPassword("TestPassword");
+		userOne.setFirstName("TestFirstName");
+		userOne.setLastName("TestLastName");
+		userOne.setStatus(UserStatus.ACTIVE);
+		userOne.setUserRole(UserRole.USER);
+
+		userTwo.setLogin(SECOND_USER_LOGIN);
+		userTwo.setNickname(SECOND_USER_LOGIN);
+		userTwo.setPassword("TestPassword");
+		userTwo.setFirstName("TestFirstName");
+		userTwo.setLastName("TestLastName");
+		userTwo.setStatus(UserStatus.ACTIVE);
+		userTwo.setUserRole(UserRole.USER);
+
+		userRepository.saveAndFlush(userOne);
+		userRepository.saveAndFlush(userTwo);
 	}
 
 }

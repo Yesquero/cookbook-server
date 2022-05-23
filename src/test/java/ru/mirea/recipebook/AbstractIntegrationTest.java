@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles(profiles = "test")
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public
 class AbstractIntegrationTest {
