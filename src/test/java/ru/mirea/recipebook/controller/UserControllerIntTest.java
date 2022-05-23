@@ -26,11 +26,6 @@ public class UserControllerIntTest extends AbstractIntegrationTest {
 	private PasswordEncoder passwordEncoder;
 
 	@Test
-	public void failingTest() {
-		Assertions.fail();
-	}
-
-	@Test
 	public void registration_and_Success() throws Exception {
 		UserInfoDto dto = createNewUserDto();
 
