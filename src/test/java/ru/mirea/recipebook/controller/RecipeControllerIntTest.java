@@ -60,6 +60,23 @@ public class RecipeControllerIntTest extends AbstractIntegrationTest {
 	}
 
 	@Test
+	@WithMockUser(authorities = "USER")
+	public void addRecipe_and_Success_and_newCategoryCreated() throws Exception {
+		NewRecipeDto dto = createNewRecipeDto();
+
+		mockMvc.perform(
+			post("/api/recipe/add")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(dto))
+		).andExpect(status().isOk());
+
+		Optional<RecipeCategory> newCategory = categoryRepository.findByName(CATEGORY_NAME);
+		Optional<Recipe> newRecipe = recipeRepository.findByName(RECIPE_NAME);
+		Assertions.assertTrue(newCategory.isPresent());
+		Assertions.assertTrue(newRecipe.isPresent());
+	}
+
+	@Test
 	@WithMockUser(authorities = {"USER"})
 	public void updateRecipe_and_Success() throws Exception {
 		UUID savedRecipeUuid = createAndSaveRecipe();

@@ -34,7 +34,7 @@ public class CategoryController {
 	}
 
 	@DeleteMapping("/delete/{uuid}")
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
 	public void delete(@PathVariable UUID uuid) {
 		categoryService.delete(uuid);
 	}

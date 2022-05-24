@@ -65,7 +65,7 @@ public class RecipeController {
 	}
 
 	@DeleteMapping("/delete/{uuid}")
-	@PreAuthorize("hasAnyAuthority('ADMIN')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'MAnAGER')")
 	public void delete(@PathVariable UUID uuid) {
 		recipeService.delete(uuid);
 	}

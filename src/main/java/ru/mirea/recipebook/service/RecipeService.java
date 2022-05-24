@@ -51,7 +51,12 @@ public class RecipeService {
 			recipeImage = imageService.findByUuid(UUID.fromString(dto.getRecipeImageUuid()));
 		}
 
-		RecipeCategory recipeCategory = categoryService.findByName(dto.getCategory());
+		RecipeCategory recipeCategory = null;
+		try {
+			recipeCategory = categoryService.findByName(dto.getCategory());
+		} catch (ResourceNotFoundException ex) {
+			recipeCategory = categoryService.addCategory(dto.getCategory());
+		}
 
 		Recipe newRecipe = new Recipe();
 
