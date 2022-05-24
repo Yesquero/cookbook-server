@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class ResourceNotFoundException extends RuntimeException {
 
-	private final static String MESSAGE = "%s with identifier: %s not found.";
+	public final static String MESSAGE = "%s with identifier: %s not found.";
 
 	public <T> ResourceNotFoundException(Class<T> resource, UUID uuid) {
 		super(String.format(MESSAGE, resource.getSimpleName(), uuid));
