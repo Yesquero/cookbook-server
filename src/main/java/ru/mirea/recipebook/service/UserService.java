@@ -25,6 +25,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
+	public static final String INCORRECT_PASSWORD_MESSAGE = "Incorrect password.";
+
 	private final UserEntityRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 
@@ -58,7 +60,7 @@ public class UserService implements UserDetailsService {
 		} else if (passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
 			return user;
 		} else {
-			throw new DomainLogicException("Incorrect password.");
+			throw new DomainLogicException(INCORRECT_PASSWORD_MESSAGE);
 		}
 	}
 
